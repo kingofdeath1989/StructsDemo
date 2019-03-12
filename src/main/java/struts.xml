@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+	<package name="root" namespace="/" extends="struts-default">
+		<!-- 配置程序所需要的Action的名称以及对应的类型 --> 
+		<action name="EchoAction" class="cn.bw.action.EchoAction">
+			<!-- 定义跳转路径 -->
+			<result name="echo.page">echo.jsp</result>
+		</action> 
+	</package>
 
 </struts>    
