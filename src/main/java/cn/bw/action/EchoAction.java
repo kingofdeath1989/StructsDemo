@@ -15,6 +15,8 @@ public class EchoAction extends ActionSupport{
 		this.msg = msg;
 	}
 	
+	
+	
 	@Override
 	public String execute() throws Exception{
 		return "echo:"+msg;
