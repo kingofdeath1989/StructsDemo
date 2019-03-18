@@ -1,5 +1,7 @@
 package cn.bw.action;
 
+import java.io.IOException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +11,9 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @SuppressWarnings("serial")
 public class EchoAction extends ActionSupport{
@@ -23,7 +28,7 @@ public class EchoAction extends ActionSupport{
 		this.msg = msg;
 	}
 	
-	@Override
+	/*@Override
 	public String execute() throws Exception{
 		//内置对象
 //		HttpServletRequest request = ServletActionContext.getRequest();
@@ -46,6 +51,30 @@ public class EchoAction extends ActionSupport{
 		return "echo.page";
 //		Action.SUCCESS
 //		Action.ERROR
+	}*/
+	
+	public String add() {
+		System.out.println("----------");
+		return "echo.page";
 	}
+	
+	public void list() {
+		ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
+		JSONObject all = new JSONObject();
+		JSONArray array = new JSONArray();
+		for (int x = 0; x < 10; x++) { // 此处应该通过数据库加载
+			JSONObject temp = new JSONObject();
+			temp.put("cid", x);
+			temp.put("title", "城市名称 - " + x);
+			array.add(temp);
+		}
+		all.put("allCities", array);
+		try {
+			ServletActionContext.getResponse().getWriter().print(all);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	} 
+	
 	
 }

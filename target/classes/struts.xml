@@ -9,7 +9,11 @@
 			<result name="echo.page">echo.jsp</result>
 			<result name="success">success.jsp</result>
 			<result name="error">dataError.jsp</result>
-		</action> 
+		</action>
+		<action name="NewsAction" class="cn.bw.action.NewsAction">
+			<result name="input">pages/news_error.jsp</result>
+			<result name="news.show">pages/news.show.jsp</result>
+		</action>
 	</package>
-	
-</struts>    
+
+</struts>
