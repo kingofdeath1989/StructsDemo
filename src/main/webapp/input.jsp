@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -12,11 +13,11 @@
 <title>Struts 2.x 开发实战</title>
 </head>
 <body>
-	<form action="NewsAction!insert.action" method="post">
-		<span id="news.nidMsg">${fieldErrors['news.nid'][0]}</span><br>
-		aaa<br/>
-		${fieldErrors}
+	<h1><s:actionerror/></h1> 
+	<form action="messageAction!insert.action" method="post">
+		请输入信息：<input type="text" name="msg">
+		<s:token name="repeat"/> 
+		<input type="submit" value="提交">
 	</form>
-
 </body>
 </html>

@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-<include file="struts-a.xml"></include>
+	<include file="struts-a.xml"></include>
 	<package name="root" namespace="/" extends="struts-default">
-		<!-- 配置程序所需要的Action的名称以及对应的类型 --> 
+		<interceptors>
+			<interceptor-stack name="interceptorstack">
+				<interceptor-ref name="myInterceptor"></interceptor-ref>
+				<interceptor-ref name="timer"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="validateStack">
+				<interceptor-ref name="validateInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor name="myInterceptor"
+				class="cn.bw.interceptor.MyInterceptor"></interceptor>
+			<interceptor name="validateInterceptor"
+				class="cn.bw.util.ValidateIntercepter"></interceptor>
+		</interceptors>
+		<global-results>
+			<result name="error.page">error.jsp</result>
+			<result name="forward.page">forward.jsp</result>
+		</global-results>
+		<!-- 配置程序所需要的Action的名称以及对应的类型 -->
 		<action name="EchoAction" class="cn.bw.action.EchoAction">
 			<!-- 定义跳转路径 -->
 			<result name="echo.page">echo.jsp</result>
@@ -12,7 +31,16 @@
 		</action>
 		<action name="NewsAction" class="cn.bw.action.NewsAction">
 			<result name="input">pages/news_error.jsp</result>
-			<result name="news.show">pages/news.show.jsp</result>
+			<result name="news.show">pages/news_show.jsp</result>
+			<interceptor-ref name="validateStack"></interceptor-ref>
+		</action>
+		<action name="prepareAction" class="cn.bw.action.PrepareAction">
+			<result name="input.page">input.jsp</result>
+		</action>
+		<action name="messageAction" class="cn.bw.action.MessageAction">
+			<result name="invalid.token">input.jsp</result>
+			<interceptor-ref name="token" />
+			<interceptor-ref name="defaultStack" />
 		</action>
 	</package>
 
